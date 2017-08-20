@@ -16,4 +16,3 @@ selenium-debug.log
 *.sln
 
 server/
-src/config.js
