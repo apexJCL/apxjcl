@@ -10,7 +10,7 @@
         </div>
       </div>
       <footer class="card-footer">
-        <router-link to="#" class="card-footer-item">See more</router-link>
+        <router-link :to="{name: 'readEntry', params: {entryId: entry._id}}" class="card-footer-item has-text-info">Read more</router-link>
       </footer>
     </div>
   </div>
@@ -29,6 +29,7 @@
     color: white
     background-color: black
     .card-header
+      font-size: 1.3rem
       background-color: black
       .card-header-title
         color: white

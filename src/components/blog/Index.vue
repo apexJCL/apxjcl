@@ -1,21 +1,22 @@
 <template>
   <div id="index">
-    <div class="hero is-black is-medium">
+    <div class="hero is-medium">
       <div class="hero-body">
-        <h1 class="title is-1">Blog</h1>
-        <p class="subtitle is-5">read me sometimes</p>
+        <h1 class="title is-3">Blog</h1>
+        <p class="subtitle is-6">read me sometimes</p>
       </div>
     </div>
     <section class="hero is-black" :class="{'is-large': entries.length > 0, 'is-fullheight': entries.length == 0}">
       <div class="hero-body">
-        <template v-if="entries.length > 0">
+        <template v-if="entries.length > 0 && !fetching">
           <div class="columns is-multiline">
             <blog-entry
               v-for="entry in entries"
-              v-bind:key="entry.id"
+              v-bind:key="entry._id"
               v-bind:entry="entry"
             ></blog-entry>
           </div>
+          <blog-pagination :pages="pages" :activeItem="actualPage" v-if="pages > 1"></blog-pagination>
         </template>
         <template v-else-if="!fetching">
           <div class="container has-text-centered">
@@ -36,15 +37,23 @@
   import { mapState } from 'vuex'
   import BlogEntry from './Entry.vue'
   import LoaderLight from '../LoaderLight.vue'
+  import BlogPagination from './Pagination.item.vue'
 
   export default {
     components: {
+      BlogPagination,
       LoaderLight,
-      BlogEntry},
+      BlogEntry
+    },
+    mounted () {
+      this.$store.dispatch('blog/fetchEntries')
+    },
     computed: {
       ...mapState({
         entries: state => state.blog.entries,
-        fetching: state => state.blog.fetching
+        fetching: state => state.blog.fetching,
+        pages: state => state.blog.pages,
+        actualPage: state => state.blog.actualPage
       })
     }
   }
