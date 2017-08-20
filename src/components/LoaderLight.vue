@@ -9,20 +9,22 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    name: 'loader-light'
+  }
 </script>
 
 <style scoped>
   .spinner {
     margin: 100px auto;
     width: 50px;
-    height: 40px;
+    height: 60px;
     text-align: center;
     font-size: 10px;
   }
 
   .spinner > div {
-    background-color: #333;
+    background-color: #e7e7e7;
     height: 100%;
     width: 6px;
     display: inline-block;
